@@ -6,3 +6,5 @@ sfdx force:user:permset:assign -n ecars
 sfdx force:user:permset:assign -n Walkthroughs
 # TODO: url updates example.herokuapp.com for CSP,namedCredentials,js 
 sfdx force:data:tree:import --plan ./data/data-plan.json
+sfdx shane:theme:activate --name Pulsar_Bold
+sfdx force:org:open
