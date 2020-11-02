@@ -7,7 +7,7 @@ package.xml
 **appMenu
 **appSwitcher
 **objectTranslations
-**profiles
+# **profiles
 # so we can auto-modify the theme
 # **settings
 force-app/main/default/lwc/liveData*
