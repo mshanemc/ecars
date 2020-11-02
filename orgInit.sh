@@ -12,11 +12,11 @@ heroku run 'cd packages/ecars-db && npx sequelize db:migrate' --app=`basename "$
 heroku ps:scale web=1:free sensor-simulator=1:free sensor-persistence=0:free sensor-connector=0:free --app=`basename "${PWD/mshanemc-/}"`-str
 
 # pwa
-sfdx shane:heroku:repo:deploy -g mshanemc -r ecars -b main -n `basename "${PWD/mshanemc-/}"`-pwa -o APP_BASE=apps/ecars-pwa,VAPID_PUBLIC_KEY=BEuf8eLfYtMMN8cge4IIoKjt4U8kn3fKyD_EDsQhe7gLqg0ZfcmthdJKvgz6po68yalkyzbvvrDs_r1qm9JHjPU,VAPID_PRIVATE_KEY=t80B5ZObGfsdQSQzYQqjLXl9Y4iIW1kLuzbPeAOGMDg --envpassword=SF_PASSWORD --envuser=SF_USERNAME
+sfdx shane:heroku:repo:deploy -g mshanemc -r ecars -b main -n `basename "${PWD/mshanemc-/}"`-pwa -o APP_BASE=apps/ecars-pwa,VAPID_PUBLIC_KEY=BEuf8eLfYtMMN8cge4IIoKjt4U8kn3fKyD_EDsQhe7gLqg0ZfcmthdJKvgz6po68yalkyzbvvrDs_r1qm9JHjPU,VAPID_PRIVATE_KEY=t80B5ZObGfsdQSQzYQqjLXl9Y4iIW1kLuzbPeAOGMDg,SF_TOKEN= --envpassword=SF_PASSWORD --envuser=SF_USERNAME
 heroku addons:attach `basename "${PWD/mshanemc-/}"`-str::DATABASE --as=DATABASE --app=`basename "${PWD/mshanemc-/}"`-pwa
 
 # microservices
-sfdx shane:heroku:repo:deploy -g mshanemc -r ecars -b main -n `basename "${PWD/mshanemc-/}"`-srv -o APP_BASE=apps/ecars-services,VAPID_PUBLIC_KEY=BEuf8eLfYtMMN8cge4IIoKjt4U8kn3fKyD_EDsQhe7gLqg0ZfcmthdJKvgz6po68yalkyzbvvrDs_r1qm9JHjPU,VAPID_PRIVATE_KEY=t80B5ZObGfsdQSQzYQqjLXl9Y4iIW1kLuzbPeAOGMDg --envpassword=SF_PASSWORD --envuser=SF_USERNAME
+sfdx shane:heroku:repo:deploy -g mshanemc -r ecars -b main -n `basename "${PWD/mshanemc-/}"`-srv -o APP_BASE=apps/ecars-services,VAPID_PUBLIC_KEY=BEuf8eLfYtMMN8cge4IIoKjt4U8kn3fKyD_EDsQhe7gLqg0ZfcmthdJKvgz6po68yalkyzbvvrDs_r1qm9JHjPU,VAPID_PRIVATE_KEY=t80B5ZObGfsdQSQzYQqjLXl9Y4iIW1kLuzbPeAOGMDg,SF_LOGIN_URL=https://test.salesforce.com,SF_TOKEN=, --envpassword=SF_PASSWORD --envuser=SF_USERNAME
 heroku addons:attach `basename "${PWD/mshanemc-/}"`-str::DATABASE --as=DATABASE --app=`basename "${PWD/mshanemc-/}"`-srv
 
 # local file substitutions
