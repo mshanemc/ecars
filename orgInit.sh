@@ -32,4 +32,4 @@ sfdx force:user:permset:assign -n ecars
 sfdx force:user:permset:assign -n Walkthroughs
 sfdx force:data:tree:import --plan ./data/data-plan.json
 sfdx shane:theme:activate --name Pulsar_Bold
-sfdx force:org:open
+sfdx force:org:open -p /lightning/o/Lead/list?filterName=Recent
