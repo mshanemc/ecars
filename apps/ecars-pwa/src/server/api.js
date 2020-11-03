@@ -30,7 +30,7 @@ const conn = new jsforce.Connection({
 });
 
 // eslint-disable-next-line no-unused-vars
-conn.login(SF_USERNAME, SF_PASSWORD + SF_TOKEN, (err, res) => {
+conn.login(SF_USERNAME, `${SF_PASSWORD}${SF_TOKEN || ''}`, (err, res) => {     
     if (err) {
         logger.error(err);
     }
