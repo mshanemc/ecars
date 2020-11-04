@@ -16,18 +16,18 @@ sfdx shane:theme:activate --name Pulsar_Bold
 sfdx force:org:open -p /lightning/o/Lead/list?filterName=Recent
 
 # mqtt
-sfdx shane:heroku:repo:deploy -g mshanemc -r ecars -b main -n `basename "${PWD/mshanemc-/}"`-mqtt -o APP_BASE=apps/ecars-mqtt-broker
+sfdx shane:heroku:repo:deploy -t autodeployed-demos -g mshanemc -r ecars -b main -n `basename "${PWD/mshanemc-/}"`-mqtt -o APP_BASE=apps/ecars-mqtt-broker
 
 # streaming app
-sfdx shane:heroku:repo:deploy -g mshanemc -r ecars -b main -n `basename "${PWD/mshanemc-/}"`-str -o APP_BASE=apps/ecars-realtime,MQTT_BROKER_URL=wss://`basename "${PWD/mshanemc-/}"`-mqtt.herokuapp.com
+sfdx shane:heroku:repo:deploy -t autodeployed-demos -g mshanemc -r ecars -b main -n `basename "${PWD/mshanemc-/}"`-str -o APP_BASE=apps/ecars-realtime,MQTT_BROKER_URL=wss://`basename "${PWD/mshanemc-/}"`-mqtt.herokuapp.com
 heroku addons:create heroku-postgresql:hobby-dev --app=`basename "${PWD/mshanemc-/}"`-str --wait
 heroku run 'cd packages/ecars-db && npx sequelize db:migrate' --app=`basename "${PWD/mshanemc-/}"`-str
-heroku ps:scale web=1:free sensor-simulator=1:free sensor-persistence=0:free sensor-connector=0:free --app=`basename "${PWD/mshanemc-/}"`-str
+heroku ps:scale web=1 sensor-simulator=1 sensor-persistence=0 sensor-connector=0 --app=`basename "${PWD/mshanemc-/}"`-str
 
 # pwa
-sfdx shane:heroku:repo:deploy -g mshanemc -r ecars -b main -n `basename "${PWD/mshanemc-/}"`-pwa -o APP_BASE=apps/ecars-pwa,VAPID_PUBLIC_KEY=BEuf8eLfYtMMN8cge4IIoKjt4U8kn3fKyD_EDsQhe7gLqg0ZfcmthdJKvgz6po68yalkyzbvvrDs_r1qm9JHjPU,VAPID_PRIVATE_KEY=t80B5ZObGfsdQSQzYQqjLXl9Y4iIW1kLuzbPeAOGMDg,SF_LOGIN_URL=https://test.salesforce.com --envpassword=SF_PASSWORD --envuser=SF_USERNAME
+sfdx shane:heroku:repo:deploy -t autodeployed-demos -g mshanemc -r ecars -b main -n `basename "${PWD/mshanemc-/}"`-pwa -o APP_BASE=apps/ecars-pwa,VAPID_PUBLIC_KEY=BEuf8eLfYtMMN8cge4IIoKjt4U8kn3fKyD_EDsQhe7gLqg0ZfcmthdJKvgz6po68yalkyzbvvrDs_r1qm9JHjPU,VAPID_PRIVATE_KEY=t80B5ZObGfsdQSQzYQqjLXl9Y4iIW1kLuzbPeAOGMDg,SF_LOGIN_URL=https://test.salesforce.com --envpassword=SF_PASSWORD --envuser=SF_USERNAME
 heroku addons:attach `basename "${PWD/mshanemc-/}"`-str::DATABASE --as=DATABASE --app=`basename "${PWD/mshanemc-/}"`-pwa
 
 # microservices
-sfdx shane:heroku:repo:deploy -g mshanemc -r ecars -b main -n `basename "${PWD/mshanemc-/}"`-srv -o APP_BASE=apps/ecars-services,VAPID_PUBLIC_KEY=BEuf8eLfYtMMN8cge4IIoKjt4U8kn3fKyD_EDsQhe7gLqg0ZfcmthdJKvgz6po68yalkyzbvvrDs_r1qm9JHjPU,VAPID_PRIVATE_KEY=t80B5ZObGfsdQSQzYQqjLXl9Y4iIW1kLuzbPeAOGMDg,SF_LOGIN_URL=https://test.salesforce.com --envpassword=SF_PASSWORD --envuser=SF_USERNAME
+sfdx shane:heroku:repo:deploy -t autodeployed-demos -g mshanemc -r ecars -b main -n `basename "${PWD/mshanemc-/}"`-srv -o APP_BASE=apps/ecars-services,VAPID_PUBLIC_KEY=BEuf8eLfYtMMN8cge4IIoKjt4U8kn3fKyD_EDsQhe7gLqg0ZfcmthdJKvgz6po68yalkyzbvvrDs_r1qm9JHjPU,VAPID_PRIVATE_KEY=t80B5ZObGfsdQSQzYQqjLXl9Y4iIW1kLuzbPeAOGMDg,SF_LOGIN_URL=https://test.salesforce.com --envpassword=SF_PASSWORD --envuser=SF_USERNAME
 heroku addons:attach `basename "${PWD/mshanemc-/}"`-str::DATABASE --as=DATABASE --app=`basename "${PWD/mshanemc-/}"`-srv
